@@ -7,6 +7,9 @@ import '@fancyapps/ui/dist/fancybox/fancybox.css';
 
 export default function SobrePage() {
   const [showSecretMissions, setShowSecretMissions] = useState(false);
+  const [activeSection, setActiveSection] = useState('regras-basicas');
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [readingProgress, setReadingProgress] = useState(0);
 
   // Inicializar Fancybox quando o componente montar
   useEffect(() => {
@@ -19,6 +22,79 @@ export default function SobrePage() {
       Fancybox.destroy();
     };
   }, []);
+
+  // Observador de interseção para destacar seção ativa
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const element = entry.target as HTMLElement;
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+          // Adicionar classe para destacar seção ativa
+          element.classList.add('active-section');
+        } else {
+          // Remover classe quando não está mais visível
+          element.classList.remove('active-section');
+        }
+      });
+    }, observerOptions);
+
+    // Observar todas as seções
+    const sections = [
+      'regras-basicas',
+      'estrutura-jogo', 
+      'unidades-disponiveis',
+      'combate-floresta',
+      'regras-especiais',
+      'galeria',
+      'mecanicas-especiais',
+      'sistema-terrenos'
+    ];
+
+    sections.forEach(sectionId => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  // Calcular progresso de leitura 
+  useEffect(() => {
+    const calculateProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      setReadingProgress(Math.min(100, Math.max(0, progress)));
+    };
+
+    window.addEventListener('scroll', calculateProgress);
+    calculateProgress(); // Calcular na inicialização
+
+    return () => {
+      window.removeEventListener('scroll', calculateProgress);
+    };
+  }, []);
+
+  // Função para scroll suave para a seção
+  const scrollToSection = (sectionId: string) => {
+    setActiveSection(sectionId);
+    setShowSidebar(false); // Fechar sidebar no mobile após navegação
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   const units = [
     {
@@ -43,7 +119,7 @@ export default function SobrePage() {
       movement: "2 espaços (incluindo diagonal)",
       attack: "Adjacente, 3+ para acertar",
       defense: "5+",
-      special: "Investida Montada (+1 dano no primeiro ataque)"
+      special: "Investida (+1 dano no primeiro ataque)"
     },
     {
       name: "🔱 Lanceiros",
@@ -125,8 +201,8 @@ export default function SobrePage() {
       image: "/imagens/classe-guerreiros.jpg"
     },
     {
-      name: "Investida Montada",
-      description: "Primeiro ataque de Cavaleiros fora de combate causa +1 dano",
+      name: "Investida",
+      description: "Cavaleiros que atacarem um esquadrao que nao estava adjacente antes do ataque terao seu dano em +1.",
       image: "/imagens/classe-cavaleiros.jpg"
     },
     {
@@ -142,6 +218,11 @@ export default function SobrePage() {
     {
       name: "Furtividade",
       description: "Espiões podem permanecer invisíveis após ataques bem-sucedidos",
+      image: "/imagens/classe-espiao.jpg"
+    },
+    {
+      name: "Ataque furtivo",
+      description: "Ao atacar estando furtivo o espiao alcanca o requisito para critico tirando 5+, se atingir essa condicao, ele permanece furtivo apos o ataque e nao pode ser atacado.",
       image: "/imagens/classe-espiao.jpg"
     }
   ];
@@ -164,9 +245,75 @@ export default function SobrePage() {
     }
   ];
 
+  const summaryItems = [
+    { id: 'regras-basicas', title: '📜 Regras Básicas', icon: '📜' },
+    { id: 'estrutura-jogo', title: '⚙️ Estrutura de Jogo', icon: '⚙️' },
+    { id: 'unidades-disponiveis', title: '⚔️ Unidades Disponíveis', icon: '⚔️' },
+    { id: 'combate-floresta', title: '🌲 Regras para Combate em Floresta', icon: '🌲' },
+    { id: 'regras-especiais', title: '⚡ Regras Especiais', icon: '⚡' },
+    { id: 'galeria', title: '🖼️ Galeria de Tropas e Cartas', icon: '🖼️' },
+    { id: 'mecanicas-especiais', title: '🎲 Mecânicas Especiais', icon: '🎲' },
+    { id: 'sistema-terrenos', title: '🌍 Sistema de Terrenos', icon: '🌍' },
+  ];
+
   return (
-    <div className="about-content">
-      <h2 className="title-center">📖 Sobre Dominus</h2>
+    <div className="page-container">
+      {/* Botão toggle para mobile */}
+      <button 
+        className="sidebar-toggle"
+        onClick={() => setShowSidebar(!showSidebar)}
+      >
+        📚 Sumário
+      </button>
+
+      {/* Overlay para fechar sidebar no mobile */}
+      {showSidebar && (
+        <div 
+          className="sidebar-overlay"
+          onClick={() => setShowSidebar(false)}
+        />
+      )}
+
+      {/* Sidebar navegável */}
+      <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
+        <div className="sidebar-header">
+          <div className="header-top">
+            <h3>📖 Navegação</h3>
+            <button 
+              className="sidebar-close"
+              onClick={() => setShowSidebar(false)}
+            >
+              ✕
+            </button>
+          </div>
+          <div className="reading-progress">
+            <div className="progress-bar">
+              <div 
+                className="progress-fill" 
+                style={{ width: `${readingProgress}%` }}
+              />
+            </div>
+            <span className="progress-text">{Math.round(readingProgress)}% lido</span>
+          </div>
+        </div>
+        <nav className="sidebar-nav">
+          {summaryItems.map((item) => (
+            <button
+              key={item.id}
+              className={`nav-item ${activeSection === item.id ? 'active' : ''}`}
+              onClick={() => scrollToSection(item.id)}
+            >
+              <span className="nav-icon">{item.icon}</span>
+              <span className="nav-text">{item.title.replace(/^[^\s]+\s/, '')}</span>
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      {/* Conteúdo principal */}
+      <div className="main-content">
+        <div className="about-content">
+          <h2 className="title-center">📖 Sobre Dominus</h2>
 
       <div className="game-description" style={{ marginBottom: '40px' }}>
         <h3 className="title-dark">🎯 O Jogo</h3>
@@ -176,7 +323,7 @@ export default function SobrePage() {
         </p>
       </div>
 
-      <div className="game-rules-section" style={{ marginBottom: '40px' }}>
+      <div id="regras-basicas" className="game-rules-section" style={{ marginBottom: '40px' }}>
         <h3 className="title-dark">📜 Regras Básicas</h3>
 
         <div className="special-rules-section" style={{ marginBottom: '30px' }}>
@@ -211,7 +358,7 @@ export default function SobrePage() {
           </div>
         </div>
 
-        <div className="forest-combat-section" style={{ marginBottom: '30px' }}>
+        <div id="estrutura-jogo" className="forest-combat-section" style={{ marginBottom: '30px' }}>
           <div className="flex-1">
             <h4 className="title-green">⚙️ Estrutura de Jogo</h4>
             <ul className="list-large">
@@ -232,7 +379,7 @@ export default function SobrePage() {
         </div>
       </div>
 
-      <div className="units-section" style={{ marginBottom: '40px' }}>
+      <div id="unidades-disponiveis" className="units-section" style={{ marginBottom: '40px' }}>
         <h3 className="title-dark">⚔️ Unidades Disponíveis</h3>
         <div className="units-grid">
           {units.map((unit, index) => (
@@ -297,7 +444,7 @@ export default function SobrePage() {
         </div>
       )}
 
-      <div className="forest-combat-section">
+      <div id="combate-floresta" className="forest-combat-section">
         <div className="flex-1">
           <h3 className="title-green">🌲 Regras para Combate em Floresta</h3>
           <ol className="list-large">
@@ -329,7 +476,7 @@ export default function SobrePage() {
         </div>
       </div>
 
-      <div className="special-rules-section">
+      <div id="regras-especiais" className="special-rules-section">
         <h3 className="title-dark text-center margin-bottom-30">⚡ Regras Especiais</h3>
         <div className="rules-grid">
           {specialRules.map((rule, index) => (
@@ -350,7 +497,7 @@ export default function SobrePage() {
         </div>
       </div>
 
-      <div className="gallery-section">
+      <div id="galeria" className="gallery-section">
         <h3 className="title-dark">🖼️ Galeria de Tropas e Cartas</h3>
         <p className="paragraph-normal">
           Explore as imagens das tropas e cartas disponíveis no jogo Dominus. Cada imagem representa uma unidade ou ação estratégica.
@@ -373,7 +520,7 @@ export default function SobrePage() {
         </div>
       </div>
 
-      <div className="mechanics-section">
+      <div id="mecanicas-especiais" className="mechanics-section">
         <h3 className="title-dark">🎲 Mecânicas Especiais</h3>
         <div className="mechanics-list">
           <ul className="list-mechanics">
@@ -395,7 +542,7 @@ export default function SobrePage() {
         </div>
       </div>
 
-      <div className="terrain-section">
+      <div id="sistema-terrenos" className="terrain-section">
         <h3 className="title-dark">🌍 Sistema de Terrenos</h3>
         <p className="paragraph-normal">
           Use nosso gerador de terrenos para criar mapas estratégicos personalizados. Cada tipo de terreno oferece vantagens e desvantagens táticas:
@@ -408,6 +555,8 @@ export default function SobrePage() {
               <small>{terrain.description}</small>
             </div>
           ))}
+        </div>
+      </div>
         </div>
       </div>
     </div>

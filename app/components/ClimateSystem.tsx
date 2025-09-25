@@ -228,7 +228,7 @@ export default function ClimateSystem({ boardData }: ClimateSystemProps) {
           onClick={applyRandomClimateEffect}
           disabled={!!activeClimate}
           style={{
-            background: 'linear-gradient(45deg, #ff9800, #2196f3, #4caf50, #9c27b0)',
+            background: 'var(--color-dark)',
             color: 'white',
             fontWeight: 'bold',
             marginBottom: '10px',

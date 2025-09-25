@@ -155,7 +155,7 @@ header p {
   background: rgba(209, 167, 92, 0.1);
   padding: 20px;
   border-radius: 10px;
-  margin-bottom: 30px;
+  margin: 30px;
 }
 
 .generation-type {
@@ -198,16 +198,42 @@ header p {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.remove-climate {
+  background: linear-gradient(45deg, var(--color-danger), #d32f2f);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-merriweather, "Merriweather", serif);
+  font-size: 14px;
+}
+
+.remove-climate:hover {
+  background: linear-gradient(45deg, #b71c1c, #f44336);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.remove-climate:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .btn-primary {
   background: linear-gradient(45deg, var(--color-gold), #b8860b);
   color: white;
   font-size: large !important;
+  margin: 5px;
 }
 
 .btn-secondary {
   background: linear-gradient(45deg, var(--color-info), #1565c0);
   color: white;
   font-size: large !important;
+  margin: 5px;
 }
 
 .btn-warning {
@@ -493,11 +519,14 @@ footer p {
 
 /* Climate effects */
 .climate-controls {
-  margin: 20px 0;
-  padding: 15px;
   background: var(--color-gold);
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 50%;
+  margin: 0 auto;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
 }
 
 .climate-options {

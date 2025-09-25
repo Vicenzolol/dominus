@@ -23,6 +23,18 @@ export default function SobrePage() {
     };
   }, []);
 
+  useEffect(() => {
+    if (showSecretMissions) {
+      // Pequeno timeout para garantir que a seção esteja renderizada
+      setTimeout(() => {
+        const secretMissionsSection = document.getElementById('secretMissionsSection');
+        if (secretMissionsSection) {
+          secretMissionsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [showSecretMissions]);
+
   // Observador de interseção para destacar seção ativa
   useEffect(() => {
     const observerOptions = {
@@ -48,7 +60,7 @@ export default function SobrePage() {
     // Observar todas as seções
     const sections = [
       'regras-basicas',
-      'estrutura-jogo', 
+      'estrutura-jogo',
       'unidades-disponiveis',
       'combate-floresta',
       'regras-especiais',
@@ -259,7 +271,7 @@ export default function SobrePage() {
   return (
     <div className="page-container">
       {/* Botão toggle para mobile */}
-      <button 
+      <button
         className="sidebar-toggle"
         onClick={() => setShowSidebar(!showSidebar)}
       >
@@ -268,7 +280,7 @@ export default function SobrePage() {
 
       {/* Overlay para fechar sidebar no mobile */}
       {showSidebar && (
-        <div 
+        <div
           className="sidebar-overlay"
           onClick={() => setShowSidebar(false)}
         />
@@ -279,7 +291,7 @@ export default function SobrePage() {
         <div className="sidebar-header">
           <div className="header-top">
             <h3>📖 Navegação</h3>
-            <button 
+            <button
               className="sidebar-close"
               onClick={() => setShowSidebar(false)}
             >
@@ -288,8 +300,8 @@ export default function SobrePage() {
           </div>
           <div className="reading-progress">
             <div className="progress-bar">
-              <div 
-                className="progress-fill" 
+              <div
+                className="progress-fill"
                 style={{ width: `${readingProgress}%` }}
               />
             </div>
@@ -315,248 +327,248 @@ export default function SobrePage() {
         <div className="about-content">
           <h2 className="title-center">📖 Sobre Dominus</h2>
 
-      <div className="game-description" style={{ marginBottom: '40px' }}>
-        <h3 className="title-dark">🎯 O Jogo</h3>
-        <p className="paragraph-large">
-          Dominus é um jogo de estratégia medieval onde você comanda poderosos esquadrões em batalhas táticas.
-          Cada unidade possui habilidades únicas e mecânicas especiais que exigem estratégia e planejamento para vencer.
-        </p>
-      </div>
-
-      <div id="regras-basicas" className="game-rules-section" style={{ marginBottom: '40px' }}>
-        <h3 className="title-dark">📜 Regras Básicas</h3>
-
-        <div className="special-rules-section" style={{ marginBottom: '30px' }}>
-          <h4 className="subtitle-dark">🏰 Organização e Jogabilidade</h4>
-          <div className="paragraph-normal">
-            <p>
-              Jogadores terão seus castelos que fornecem <strong>ouro</strong> a cada rodada para adquirir unidades para seu exército.
-              O ouro pode também ser adquirido ao derrotar tropas inimigas ou através de acampamentos.
-            </p>
-            <p>
-              Será possível construir torres de vigilância que abrigam certas unidades, concedendo benefícios específicos.
-              Cada torre fornece <strong>Pontos de Vitória (P.V.)</strong>, que são cruciais para uma das formas de vencer o jogo.
-            </p>
-          </div>
-        </div>
-
-        <div className="rules-grid" style={{ marginBottom: '30px' }}>
-          <div className="rule-item">
-            <h4 className="subtitle-dark">🏆 Pontos de Vitória</h4>
-            <p className="paragraph-normal">
-              Seu reino já inicia com uma quantidade de P.V., mas cuidado: se seus pontos forem baixos, seu castelo pode ser atacado por unidades comuns.
-              Ganhe pontos construindo torres ou através de missões secretas com o espião. Com P.V. altos, seu castelo só poderá sofrer dano através de armas de cerco.
+          <div className="game-description" style={{ marginBottom: '40px' }}>
+            <h3 className="title-dark">🎯 O Jogo</h3>
+            <p className="paragraph-large">
+              Dominus é um jogo de estratégia medieval onde você comanda poderosos esquadrões em batalhas táticas.
+              Cada unidade possui habilidades únicas e mecânicas especiais que exigem estratégia e planejamento para vencer.
             </p>
           </div>
 
-          <div className="rule-item">
-            <h4 className="subtitle-dark">🎲 Sistema de Combate</h4>
-            <p className="paragraph-normal">
-              O combate entre unidades é realizado com dados d6. Cada unidade do esquadrão é representada por um dado.
-              Após ataques bem-sucedidos, a tropa inimiga terá a chance de se defender, com cada classe tendo diferentes valores de ataque e defesa.
-            </p>
-          </div>
-        </div>
+          <div id="regras-basicas" className="game-rules-section" style={{ marginBottom: '40px' }}>
+            <h3 className="title-dark">📜 Regras Básicas</h3>
 
-        <div id="estrutura-jogo" className="forest-combat-section" style={{ marginBottom: '30px' }}>
-          <div className="flex-1">
-            <h4 className="title-green">⚙️ Estrutura de Jogo</h4>
-            <ul className="list-large">
-              <li><strong>Tabuleiro:</strong> 26 x 26 casas quadradas com áreas de campo, florestas e rochedos gerados aleatoriamente.</li>
-              <li><strong>Esquadrões:</strong> Cada esquadrão conta com 5 unidades da classe escolhida.</li>
-              <li><strong>Treinamento:</strong> É possível adquirir habilidades permanentes para suas tropas, adaptando-as à sua estratégia.</li>
-              <li><strong>Movimentos por turno:</strong> Cada jogador pode movimentar até 3 esquadrões e realizar 3 ataques por turno.</li>
-            </ul>
-          </div>
-          <div className="flex-1">
-            <h4 className="title-green">🏅 Condições de Vitória</h4>
-            <ul className="list-large">
-              <li><strong>Destruição do Castelo:</strong> Use armas de cerco (ou tropas comuns se o inimigo tiver P.V. baixo) para destruir o castelo adversário.</li>
-              <li><strong>Acúmulo de Pontos:</strong> Atinja a quantidade de Pontos de Vitória estabelecida para vencer a partida.</li>
-              <li><strong>Pontos de Ação:</strong> Use-os para contratar tropas, realizar patrulhas e outras ações importantes.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div id="unidades-disponiveis" className="units-section" style={{ marginBottom: '40px' }}>
-        <h3 className="title-dark">⚔️ Unidades Disponíveis</h3>
-        <div className="units-grid">
-          {units.map((unit, index) => (
-            <div key={index} className="unit-card">
-              <a href={unit.image} data-fancybox="gallery" data-caption={`${unit.name} - Unidade de combate especializada`}>
-                <Image
-                  src={unit.image}
-                  alt={unit.name}
-                  width={150}
-                  height={150}
-                  className="unit-img"
-                />
-              </a>
-              <h4 className="title-dark">{unit.name}</h4>
-              <ul className="list-line-height">
-                <li><strong>Movimento:</strong> {unit.movement}</li>
-                <li><strong>Ataque:</strong> {unit.attack}</li>
-                <li><strong>Defesa:</strong> {unit.defense}</li>
-                <li><strong>Habilidade:</strong> {unit.special}</li>
-              </ul>
-              {unit.name === "🕵️ Espião" && (
-                <button
-                  className="btn-show-missions"
-                  onClick={() => setShowSecretMissions(true)}
-                >
-                  🔍 Ver Missões Secretas
-                </button>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {showSecretMissions && (
-        <div id="secretMissionsSection" className="secret-missions">
-          <h3 className="title-dark text-center margin-bottom-20">🕵️ Missões Secretas do Espião</h3>
-          <p className="paragraph-center">Cartas especiais que o Espião pode executar para sabotar o inimigo</p>
-          <div className="missions-grid">
-            {secretMissions.map((mission, index) => (
-              <div key={index} className="mission-card">
-                <a href={mission.image} data-fancybox="gallery" data-caption={`${mission.name} - Missão secreta do espião`}>
-                  <Image
-                    src={mission.image}
-                    alt={mission.name}
-                    width={150}
-                    height={150}
-                    className="mission-img"
-                  />
-                </a>
-                <p className="margin-top-10" style={{ fontWeight: 'bold' }}>{mission.name}</p>
+            <div className="special-rules-section" style={{ marginBottom: '30px' }}>
+              <h4 className="subtitle-dark">🏰 Organização e Jogabilidade</h4>
+              <div className="paragraph-normal">
+                <p>
+                  Jogadores terão seus castelos que fornecem <strong>ouro</strong> a cada rodada para adquirir unidades para seu exército.
+                  O ouro pode também ser adquirido ao derrotar tropas inimigas ou através de acampamentos.
+                </p>
+                <p>
+                  Será possível construir torres de vigilância que abrigam certas unidades, concedendo benefícios específicos.
+                  Cada torre fornece <strong>Pontos de Vitória (P.V.)</strong>, que são cruciais para uma das formas de vencer o jogo.
+                </p>
               </div>
-            ))}
-          </div>
-          <div className="text-center margin-top-20">
-            <button
-              className="btn-hide-missions"
-              onClick={() => setShowSecretMissions(false)}
-            >
-              ❌ Ocultar Missões
-            </button>
-          </div>
-        </div>
-      )}
+            </div>
 
-      <div id="combate-floresta" className="forest-combat-section">
-        <div className="flex-1">
-          <h3 className="title-green">🌲 Regras para Combate em Floresta</h3>
-          <ol className="list-large">
-            <li><strong>Ocultação:</strong>
-              <ul>
-                <li>Unidades dentro da floresta <strong>não podem ser alvo de ataques à distância</strong>.</li>
-                <li>No tabuleiro, elas ainda ocupam espaço, mas apenas unidades <strong>adjacentes</strong> podem atacá-las.</li>
-              </ul>
-            </li>
-            <li><strong>Teste de Emboscada (Dado D10):</strong>
-              <ul>
-                <li>Antes do combate, a tropa que <strong>ataca dentro da floresta</strong> rola um D10.</li>
-                <li>Resultado <strong>1–4</strong>: a tropa se perde no terreno e o ataque falha (não ocorre).</li>
-                <li>Resultado <strong>5–10</strong>: o combate ocorre normalmente.</li>
-              </ul>
-            </li>
-          </ol>
-        </div>
-        <div className="flex-1 text-center">
-          <a href="/imagens/floresta.jpg" data-fancybox="gallery" data-caption="🌲 Combate em Floresta - Regras especiais para batalhas na floresta">
-            <Image
-              src="/imagens/floresta.jpg"
-              alt="Combate em Floresta"
-              width={300}
-              height={200}
-              className="forest-img"
-            />
-          </a>
-        </div>
-      </div>
+            <div className="rules-grid" style={{ marginBottom: '30px' }}>
+              <div className="rule-item">
+                <h4 className="subtitle-dark">🏆 Pontos de Vitória</h4>
+                <p className="paragraph-normal">
+                  Seu reino já inicia com uma quantidade de P.V., mas cuidado: se seus pontos forem baixos, seu castelo pode ser atacado por unidades comuns.
+                  Ganhe pontos construindo torres ou através de missões secretas com o espião. Com P.V. altos, seu castelo só poderá sofrer dano através de armas de cerco.
+                </p>
+              </div>
 
-      <div id="regras-especiais" className="special-rules-section">
-        <h3 className="title-dark text-center margin-bottom-30">⚡ Regras Especiais</h3>
-        <div className="rules-grid">
-          {specialRules.map((rule, index) => (
-            <div key={index} className="rule-item">
-              <h4 className="subtitle-dark">{rule.title}</h4>
-              <p className="paragraph-normal">{rule.description}</p>
-              <a href={rule.image} data-fancybox="gallery" data-caption={rule.title}>
+              <div className="rule-item">
+                <h4 className="subtitle-dark">🎲 Sistema de Combate</h4>
+                <p className="paragraph-normal">
+                  O combate entre unidades é realizado com dados d6. Cada unidade do esquadrão é representada por um dado.
+                  Após ataques bem-sucedidos, a tropa inimiga terá a chance de se defender, com cada classe tendo diferentes valores de ataque e defesa.
+                </p>
+              </div>
+            </div>
+
+            <div id="estrutura-jogo" className="forest-combat-section" style={{ marginBottom: '30px' }}>
+              <div className="flex-1">
+                <h4 className="title-green">⚙️ Estrutura de Jogo</h4>
+                <ul className="list-large">
+                  <li><strong>Tabuleiro:</strong> 26 x 26 casas quadradas com áreas de campo, florestas e rochedos gerados aleatoriamente.</li>
+                  <li><strong>Esquadrões:</strong> Cada esquadrão conta com 5 unidades da classe escolhida.</li>
+                  <li><strong>Treinamento:</strong> É possível adquirir habilidades permanentes para suas tropas, adaptando-as à sua estratégia.</li>
+                  <li><strong>Movimentos por turno:</strong> Cada jogador pode movimentar até 3 esquadrões e realizar 3 ataques por turno.</li>
+                </ul>
+              </div>
+              <div className="flex-1">
+                <h4 className="title-green">🏅 Condições de Vitória</h4>
+                <ul className="list-large">
+                  <li><strong>Destruição do Castelo:</strong> Use armas de cerco (ou tropas comuns se o inimigo tiver P.V. baixo) para destruir o castelo adversário.</li>
+                  <li><strong>Acúmulo de Pontos:</strong> Atinja a quantidade de Pontos de Vitória estabelecida para vencer a partida.</li>
+                  <li><strong>Pontos de Ação:</strong> Use-os para contratar tropas, realizar patrulhas e outras ações importantes.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div id="unidades-disponiveis" className="units-section" style={{ marginBottom: '40px' }}>
+            <h3 className="title-dark">⚔️ Unidades Disponíveis</h3>
+            <div className="units-grid">
+              {units.map((unit, index) => (
+                <div key={index} className="unit-card">
+                  <a href={unit.image} data-fancybox="gallery" data-caption={`${unit.name} - Unidade de combate especializada`}>
+                    <Image
+                      src={unit.image}
+                      alt={unit.name}
+                      width={150}
+                      height={150}
+                      className="unit-img"
+                    />
+                  </a>
+                  <h4 className="title-dark">{unit.name}</h4>
+                  <ul className="list-line-height">
+                    <li><strong>Movimento:</strong> {unit.movement}</li>
+                    <li><strong>Ataque:</strong> {unit.attack}</li>
+                    <li><strong>Defesa:</strong> {unit.defense}</li>
+                    <li><strong>Habilidade:</strong> {unit.special}</li>
+                  </ul>
+                  {unit.name === "🕵️ Espião" && (
+                    <button
+                      className="btn-show-missions"
+                      onClick={() => setShowSecretMissions(true)}
+                    >
+                      🔍 Ver Missões Secretas
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {showSecretMissions && (
+            <div id="secretMissionsSection" className="secret-missions">
+              <h3 className="title-dark text-center margin-bottom-20">🕵️ Missões Secretas do Espião</h3>
+              <p className="paragraph-center">Cartas especiais que o Espião pode executar para sabotar o inimigo</p>
+              <div className="missions-grid">
+                {secretMissions.map((mission, index) => (
+                  <div key={index} className="mission-card">
+                    <a href={mission.image} data-fancybox="gallery" data-caption={`${mission.name} - Missão secreta do espião`}>
+                      <Image
+                        src={mission.image}
+                        alt={mission.name}
+                        width={150}
+                        height={150}
+                        className="mission-img"
+                      />
+                    </a>
+                    <p className="margin-top-10" style={{ fontWeight: 'bold' }}>{mission.name}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="text-center margin-top-20">
+                <button
+                  className="btn-hide-missions"
+                  onClick={() => setShowSecretMissions(false)}
+                >
+                  ❌ Ocultar Missões
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div id="combate-floresta" className="forest-combat-section">
+            <div className="flex-1">
+              <h3 className="title-green">🌲 Regras para Combate em Floresta</h3>
+              <ol className="list-large">
+                <li><strong>Ocultação:</strong>
+                  <ul>
+                    <li>Unidades dentro da floresta <strong>não podem ser alvo de ataques à distância</strong>.</li>
+                    <li>No tabuleiro, elas ainda ocupam espaço, mas apenas unidades <strong>adjacentes</strong> podem atacá-las.</li>
+                  </ul>
+                </li>
+                <li><strong>Teste de Emboscada (Dado D10):</strong>
+                  <ul>
+                    <li>Antes do combate, a tropa que <strong>ataca dentro da floresta</strong> rola um D10.</li>
+                    <li>Resultado <strong>1–4</strong>: a tropa se perde no terreno e o ataque falha (não ocorre).</li>
+                    <li>Resultado <strong>5–10</strong>: o combate ocorre normalmente.</li>
+                  </ul>
+                </li>
+              </ol>
+            </div>
+            <div className="flex-1 text-center">
+              <a href="/imagens/floresta.jpg" data-fancybox="gallery" data-caption="🌲 Combate em Floresta - Regras especiais para batalhas na floresta">
                 <Image
-                  src={rule.image}
-                  alt={rule.title}
-                  width={250}
-                  height={150}
-                  className="rule-img"
+                  src="/imagens/floresta.jpg"
+                  alt="Combate em Floresta"
+                  width={300}
+                  height={200}
+                  className="forest-img"
                 />
               </a>
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
 
-      <div id="galeria" className="gallery-section">
-        <h3 className="title-dark">🖼️ Galeria de Tropas e Cartas</h3>
-        <p className="paragraph-normal">
-          Explore as imagens das tropas e cartas disponíveis no jogo Dominus. Cada imagem representa uma unidade ou ação estratégica.
-        </p>
-        <div className="gallery-grid">
-          {galleryImages.map((item, index) => (
-            <div key={index} className="gallery-item">
-              <a href={item.src} data-fancybox="gallery" data-caption={`${item.name} - Estrutura do jogo Dominus`}>
-                <Image
-                  src={item.src}
-                  alt={item.name}
-                  width={180}
-                  height={180}
-                  className="gallery-img"
-                />
-              </a>
-              <p className="margin-top-10" style={{ fontWeight: 'bold' }}>{item.name}</p>
+          <div id="regras-especiais" className="special-rules-section">
+            <h3 className="title-dark text-center margin-bottom-30">⚡ Regras Especiais</h3>
+            <div className="rules-grid">
+              {specialRules.map((rule, index) => (
+                <div key={index} className="rule-item">
+                  <h4 className="subtitle-dark">{rule.title}</h4>
+                  <p className="paragraph-normal">{rule.description}</p>
+                  <a href={rule.image} data-fancybox="gallery" data-caption={rule.title}>
+                    <Image
+                      src={rule.image}
+                      alt={rule.title}
+                      width={250}
+                      height={150}
+                      className="rule-img"
+                    />
+                  </a>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
 
-      <div id="mecanicas-especiais" className="mechanics-section">
-        <h3 className="title-dark">🎲 Mecânicas Especiais</h3>
-        <div className="mechanics-list">
-          <ul className="list-mechanics">
-            {mechanics.map((mechanic, index) => (
-              <li key={index}>
-                <a href={mechanic.image} data-fancybox="gallery" data-caption={`${mechanic.name} - ${mechanic.description}`}>
-                  <Image
-                    src={mechanic.image}
-                    alt={mechanic.name}
-                    width={30}
-                    height={30}
-                    className="mechanic-icon"
-                  />
-                </a>
-                <strong> {mechanic.name}:</strong> {mechanic.description}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      <div id="sistema-terrenos" className="terrain-section">
-        <h3 className="title-dark">🌍 Sistema de Terrenos</h3>
-        <p className="paragraph-normal">
-          Use nosso gerador de terrenos para criar mapas estratégicos personalizados. Cada tipo de terreno oferece vantagens e desvantagens táticas:
-        </p>
-        <div className="terrain-types">
-          {terrainTypes.map((terrain, index) => (
-            <div key={index} className="terrain-type">
-              <div className={`terrain-sample ${terrain.class}`}></div>
-              <strong>{terrain.name}</strong><br />
-              <small>{terrain.description}</small>
+          <div id="galeria" className="gallery-section">
+            <h3 className="title-dark">🖼️ Galeria de Tropas e Cartas</h3>
+            <p className="paragraph-normal">
+              Explore as imagens das tropas e cartas disponíveis no jogo Dominus. Cada imagem representa uma unidade ou ação estratégica.
+            </p>
+            <div className="gallery-grid">
+              {galleryImages.map((item, index) => (
+                <div key={index} className="gallery-item">
+                  <a href={item.src} data-fancybox="gallery" data-caption={`${item.name} - Estrutura do jogo Dominus`}>
+                    <Image
+                      src={item.src}
+                      alt={item.name}
+                      width={180}
+                      height={180}
+                      className="gallery-img"
+                    />
+                  </a>
+                  <p className="margin-top-10" style={{ fontWeight: 'bold' }}>{item.name}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+
+          <div id="mecanicas-especiais" className="mechanics-section">
+            <h3 className="title-dark">🎲 Mecânicas Especiais</h3>
+            <div className="mechanics-list">
+              <ul className="list-mechanics">
+                {mechanics.map((mechanic, index) => (
+                  <li key={index}>
+                    <a href={mechanic.image} data-fancybox="gallery" data-caption={`${mechanic.name} - ${mechanic.description}`}>
+                      <Image
+                        src={mechanic.image}
+                        alt={mechanic.name}
+                        width={30}
+                        height={30}
+                        className="mechanic-icon"
+                      />
+                    </a>
+                    <strong> {mechanic.name}:</strong> {mechanic.description}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div id="sistema-terrenos" className="terrain-section">
+            <h3 className="title-dark">🌍 Sistema de Terrenos</h3>
+            <p className="paragraph-normal">
+              Use nosso gerador de terrenos para criar mapas estratégicos personalizados. Cada tipo de terreno oferece vantagens e desvantagens táticas:
+            </p>
+            <div className="terrain-types">
+              {terrainTypes.map((terrain, index) => (
+                <div key={index} className="terrain-type">
+                  <div className={`terrain-sample ${terrain.class}`}></div>
+                  <strong>{terrain.name}</strong><br />
+                  <small>{terrain.description}</small>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

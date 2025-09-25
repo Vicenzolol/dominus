@@ -93,8 +93,8 @@ export default function TerrainGenerator() {
             forestGroupsCreated++;
 
             // Lista de células deste grupo de floresta
-            let forestCells = [{ row: startRow, col: startCol }];
-            let growthQueue = [...forestCells];
+            const forestCells = [{ row: startRow, col: startCol }];
+            const growthQueue = [...forestCells];
 
             // Crescer até no máximo 4 células
             const groupSize = Math.min(1 + Math.floor(Math.random() * MAX_CELLS_PER_GROUP), MAX_CELLS_PER_GROUP);
@@ -139,7 +139,7 @@ export default function TerrainGenerator() {
     // Segunda passagem: adicionar mais grupos até atingir a meta
     while (darkGreenAdded < targetDarkGreen && forestGroupsCreated < MIN_FOREST_GROUPS) {
       // Escolher um ponto inicial aleatório
-      let startIndex = Math.floor(Math.random() * totalCells);
+      const startIndex = Math.floor(Math.random() * totalCells);
 
       // Verificar se o ponto é válido
       if (terrain[startIndex] === "light-green") {
@@ -170,8 +170,8 @@ export default function TerrainGenerator() {
           forestGroupsCreated++;
 
           // Lista de células deste grupo de floresta
-          let forestCells = [{ row: startRow, col: startCol }];
-          let growthQueue = [...forestCells];
+          const forestCells = [{ row: startRow, col: startCol }];
+          const growthQueue = [...forestCells];
 
           // Tamanho deste grupo
           const groupSize = Math.min(1 + Math.floor(Math.random() * MAX_CELLS_PER_GROUP), MAX_CELLS_PER_GROUP);

@@ -1,0 +1,359 @@
+'use client';
+
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { Fancybox } from '@fancyapps/ui';
+import '@fancyapps/ui/dist/fancybox/fancybox.css';
+
+export default function SobrePage() {
+  const [showSecretMissions, setShowSecretMissions] = useState(false);
+
+  // Inicializar Fancybox quando o componente montar
+  useEffect(() => {
+    Fancybox.bind('[data-fancybox="gallery"]', {
+      // Opções básicas do Fancybox
+    });
+
+    // Cleanup
+    return () => {
+      Fancybox.destroy();
+    };
+  }, []);
+
+  const units = [
+    {
+      name: "🛡️ Guerreiros",
+      image: "/imagens/classe-guerreiros.jpg",
+      movement: "2 espaços",
+      attack: "Adjacente, 3+ para acertar",
+      defense: "4+",
+      special: "Formação Defensiva (+1 defesa coletiva)"
+    },
+    {
+      name: "🏹 Arqueiros",
+      image: "/imagens/classe-arqueiros.jpg",
+      movement: "2 espaços",
+      attack: "3 espaços de distância, 3+ para acertar",
+      defense: "6",
+      special: "Chuva de Flechas (ataque conjunto)"
+    },
+    {
+      name: "🐎 Cavaleiros",
+      image: "/imagens/classe-cavaleiros.jpg",
+      movement: "2 espaços (incluindo diagonal)",
+      attack: "Adjacente, 3+ para acertar",
+      defense: "5+",
+      special: "Investida Montada (+1 dano no primeiro ataque)"
+    },
+    {
+      name: "🔱 Lanceiros",
+      image: "/imagens/classe-lanceiros.jpg",
+      movement: "2 espaços",
+      attack: "Adjacente, 4+ para acertar",
+      defense: "2+",
+      special: "Cobertura (protege unidades atrás)"
+    },
+    {
+      name: "🏰 Catapulta",
+      image: "/imagens/classe-catapulta.jpg",
+      movement: "1 espaço",
+      attack: "5 espaços de distância, 2+ para acertar",
+      defense: "-",
+      special: "Artilharia de longo alcance"
+    },
+    {
+      name: "🕵️ Espião",
+      image: "/imagens/classe-espiao.jpg",
+      movement: "1 espaço (furtivo)",
+      attack: "Adjacente, 3+ para acertar",
+      defense: "5+",
+      special: "Ataque furtivo (não pode ser defendido)"
+    },
+    {
+      name: "⛺ Acampamento",
+      image: "/imagens/classe-acampamento.jpg",
+      movement: "-",
+      attack: "-",
+      defense: "-",
+      special: "Base móvel de apoio - A cada turno estacionado, cure uma unidade do esquadrão em troca de um ataque do turno. Sua posição só pode ficar a até 6 espaços do castelo"
+    }
+  ];
+
+  const secretMissions = [
+    { name: "Roubo de Ouro", image: "/imagens/roubo-de-ouro.jpg" },
+    { name: "Roubar Mapas", image: "/imagens/roubar-mapas.jpg" },
+    { name: "Roubar Suprimentos", image: "/imagens/roubar-suprimentos.jpg" },
+    { name: "Assassinato de Oficial", image: "/imagens/assassinato-de-oficial.jpg" },
+    { name: "Sabotar Catapulta", image: "/imagens/sabotar-catapulta.jpg" },
+    { name: "Caos no Campo", image: "/imagens/caos-no-campo.jpg" },
+    { name: "Infiltração Total", image: "/imagens/infiltracao-total.jpg" },
+    { name: "Interceptar", image: "/imagens/interceptar.jpg" }
+  ];
+
+  const specialRules = [
+    {
+      title: "🕵️ Captura de Espião",
+      description: "Ao capturar o espião inimigo, o jogador pode escolher pagar em ouro a quantidade de PVs ganhados pelo espião e adicionar aos seus próprios PVs.",
+      image: "/imagens/captura-espiao.jpg"
+    },
+    {
+      title: "🛡️ Escolta",
+      description: "Se uma catapulta estiver adjacente a algum esquadrão, ela ganha a defesa do esquadrão em questão.",
+      image: "/imagens/escolta.jpg"
+    },
+    {
+      title: "⚔️ Duelo",
+      description: "O jogador atacante propõe um duelo entre dois esquadrões. Para que a ação se cumpra, o jogador defensivo precisa concordar com a ação de duelo. A resolução segue: ambos os jogadores jogam um D10. O jogador com resultado maior vence o duelo. O perdedor perde uma unidade do esquadrão. A ação representa o duelo entre dois campeões do esquadrão.",
+      image: "/imagens/duelo.jpg"
+    }
+  ];
+
+  const galleryImages = [
+    { name: "Torre", src: "/imagens/classe-torre.jpg" },
+    { name: "Base", src: "/imagens/classe-base.jpg" }
+  ];
+
+  const mechanics = [
+    {
+      name: "Ataque Crítico",
+      description: "Resultados de 6 em dados de ataque não podem ser defendidos",
+      image: "/imagens/ataque-critico.jpg"
+    },
+    {
+      name: "Formação Defensiva",
+      description: "Guerreiros lado a lado ganham +1 defesa coletiva",
+      image: "/imagens/classe-guerreiros.jpg"
+    },
+    {
+      name: "Investida Montada",
+      description: "Primeiro ataque de Cavaleiros fora de combate causa +1 dano",
+      image: "/imagens/classe-cavaleiros.jpg"
+    },
+    {
+      name: "Cobertura",
+      description: "Lanceiros protegem unidades adjacentes atrás deles contra ataques à distância",
+      image: "/imagens/cobertura.jpg"
+    },
+    {
+      name: "Chuva de Flechas",
+      description: "Até 3 Arqueiros adjacentes podem atacar juntos como 1 ataque",
+      image: "/imagens/chuva-de-flecha.jpg"
+    },
+    {
+      name: "Furtividade",
+      description: "Espiões podem permanecer invisíveis após ataques bem-sucedidos",
+      image: "/imagens/classe-espiao.jpg"
+    }
+  ];
+
+  const terrainTypes = [
+    {
+      name: "Campos/Planícies",
+      description: "Movimento livre, combate equilibrado",
+      class: "fields"
+    },
+    {
+      name: "Florestas", 
+      description: "Cobertura para unidades furtivas",
+      class: "forests"
+    },
+    {
+      name: "Montanhas",
+      description: "Posições defensivas elevadas", 
+      class: "mountains"
+    }
+  ];
+
+  return (
+    <div className="about-content">
+      <h2 className="title-center">📖 Sobre Dominus</h2>
+
+      <div className="game-description" style={{ marginBottom: '40px' }}>
+        <h3 className="title-dark">🎯 O Jogo</h3>
+        <p className="paragraph-large">
+          Dominus é um jogo de estratégia medieval onde você comanda poderosos esquadrões em batalhas táticas.
+          Cada unidade possui habilidades únicas e mecânicas especiais que exigem estratégia e planejamento para vencer.
+        </p>
+      </div>
+
+      <div className="units-section" style={{ marginBottom: '40px' }}>
+        <h3 className="title-dark">⚔️ Unidades Disponíveis</h3>
+        <div className="units-grid">
+          {units.map((unit, index) => (
+            <div key={index} className="unit-card">
+              <a href={unit.image} data-fancybox="gallery" data-caption={`${unit.name} - Unidade de combate especializada`}>
+                <Image 
+                  src={unit.image} 
+                  alt={unit.name}
+                  width={150}
+                  height={150}
+                  className="unit-img"
+                />
+              </a>
+              <h4 className="title-dark">{unit.name}</h4>
+              <ul className="list-line-height">
+                <li><strong>Movimento:</strong> {unit.movement}</li>
+                <li><strong>Ataque:</strong> {unit.attack}</li>
+                <li><strong>Defesa:</strong> {unit.defense}</li>
+                <li><strong>Habilidade:</strong> {unit.special}</li>
+              </ul>
+              {unit.name === "🕵️ Espião" && (
+                <button 
+                  className="btn-show-missions"
+                  onClick={() => setShowSecretMissions(true)}
+                >
+                  🔍 Ver Missões Secretas
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {showSecretMissions && (
+        <div id="secretMissionsSection" className="secret-missions">
+          <h3 className="title-dark text-center margin-bottom-20">🕵️ Missões Secretas do Espião</h3>
+          <p className="paragraph-center">Cartas especiais que o Espião pode executar para sabotar o inimigo</p>
+          <div className="missions-grid">
+            {secretMissions.map((mission, index) => (
+              <div key={index} className="mission-card">
+                <a href={mission.image} data-fancybox="gallery" data-caption={`${mission.name} - Missão secreta do espião`}>
+                  <Image 
+                    src={mission.image} 
+                    alt={mission.name}
+                    width={150}
+                    height={150}
+                    className="mission-img"
+                  />
+                </a>
+                <p className="margin-top-10" style={{ fontWeight: 'bold' }}>{mission.name}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center margin-top-20">
+            <button 
+              className="btn-hide-missions"
+              onClick={() => setShowSecretMissions(false)}
+            >
+              ❌ Ocultar Missões
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className="forest-combat-section">
+        <div className="flex-1">
+          <h3 className="title-green">🌲 Regras para Combate em Floresta</h3>
+          <ol className="list-large">
+            <li><strong>Ocultação:</strong>
+              <ul>
+                <li>Unidades dentro da floresta <strong>não podem ser alvo de ataques à distância</strong>.</li>
+                <li>No tabuleiro, elas ainda ocupam espaço, mas apenas unidades <strong>adjacentes</strong> podem atacá-las.</li>
+              </ul>
+            </li>
+            <li><strong>Teste de Emboscada (Dado D10):</strong>
+              <ul>
+                <li>Antes do combate, a tropa que <strong>ataca dentro da floresta</strong> rola um D10.</li>
+                <li>Resultado <strong>1–4</strong>: a tropa se perde no terreno e o ataque falha (não ocorre).</li>
+                <li>Resultado <strong>5–10</strong>: o combate ocorre normalmente.</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+        <div className="flex-1 text-center">
+          <a href="/imagens/floresta.jpg" data-fancybox="gallery" data-caption="🌲 Combate em Floresta - Regras especiais para batalhas na floresta">
+            <Image 
+              src="/imagens/floresta.jpg" 
+              alt="Combate em Floresta"
+              width={300}
+              height={200}
+              className="forest-img"
+            />
+          </a>
+        </div>
+      </div>
+
+      <div className="special-rules-section">
+        <h3 className="title-dark text-center margin-bottom-30">⚡ Regras Especiais</h3>
+        <div className="rules-grid">
+          {specialRules.map((rule, index) => (
+            <div key={index} className="rule-item">
+              <h4 className="subtitle-dark">{rule.title}</h4>
+              <p className="paragraph-normal">{rule.description}</p>
+              <a href={rule.image} data-fancybox="gallery" data-caption={rule.title}>
+                <Image 
+                  src={rule.image} 
+                  alt={rule.title}
+                  width={250}
+                  height={150}
+                  className="rule-img"
+                />
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="gallery-section">
+        <h3 className="title-dark">🖼️ Galeria de Tropas e Cartas</h3>
+        <p className="paragraph-normal">
+          Explore as imagens das tropas e cartas disponíveis no jogo Dominus. Cada imagem representa uma unidade ou ação estratégica.
+        </p>
+        <div className="gallery-grid">
+          {galleryImages.map((item, index) => (
+            <div key={index} className="gallery-item">
+              <a href={item.src} data-fancybox="gallery" data-caption={`${item.name} - Estrutura do jogo Dominus`}>
+                <Image 
+                  src={item.src} 
+                  alt={item.name}
+                  width={180}
+                  height={180}
+                  className="gallery-img"
+                />
+              </a>
+              <p className="margin-top-10" style={{ fontWeight: 'bold' }}>{item.name}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mechanics-section">
+        <h3 className="title-dark">🎲 Mecânicas Especiais</h3>
+        <div className="mechanics-list">
+          <ul className="list-mechanics">
+            {mechanics.map((mechanic, index) => (
+              <li key={index}>
+                <a href={mechanic.image} data-fancybox="gallery" data-caption={`${mechanic.name} - ${mechanic.description}`}>
+                  <Image 
+                    src={mechanic.image} 
+                    alt={mechanic.name}
+                    width={30}
+                    height={30}
+                    className="mechanic-icon"
+                  />
+                </a> 
+                <strong> {mechanic.name}:</strong> {mechanic.description}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="terrain-section">
+        <h3 className="title-dark">🌍 Sistema de Terrenos</h3>
+        <p className="paragraph-normal">
+          Use nosso gerador de terrenos para criar mapas estratégicos personalizados. Cada tipo de terreno oferece vantagens e desvantagens táticas:
+        </p>
+        <div className="terrain-types">
+          {terrainTypes.map((terrain, index) => (
+            <div key={index} className="terrain-type">
+              <div className={`terrain-sample ${terrain.class}`}></div>
+              <strong>{terrain.name}</strong><br />
+              <small>{terrain.description}</small>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

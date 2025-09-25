@@ -153,13 +153,13 @@ export default function SobrePage() {
       class: "fields"
     },
     {
-      name: "Florestas", 
+      name: "Florestas",
       description: "Cobertura para unidades furtivas",
       class: "forests"
     },
     {
       name: "Montanhas",
-      description: "Posições defensivas elevadas", 
+      description: "Posições defensivas elevadas",
       class: "mountains"
     }
   ];
@@ -176,14 +176,70 @@ export default function SobrePage() {
         </p>
       </div>
 
+      <div className="game-rules-section" style={{ marginBottom: '40px' }}>
+        <h3 className="title-dark">📜 Regras Básicas</h3>
+
+        <div className="special-rules-section" style={{ marginBottom: '30px' }}>
+          <h4 className="subtitle-dark">🏰 Organização e Jogabilidade</h4>
+          <div className="paragraph-normal">
+            <p>
+              Jogadores terão seus castelos que fornecem <strong>ouro</strong> a cada rodada para adquirir unidades para seu exército.
+              O ouro pode também ser adquirido ao derrotar tropas inimigas ou através de acampamentos.
+            </p>
+            <p>
+              Será possível construir torres de vigilância que abrigam certas unidades, concedendo benefícios específicos.
+              Cada torre fornece <strong>Pontos de Vitória (P.V.)</strong>, que são cruciais para uma das formas de vencer o jogo.
+            </p>
+          </div>
+        </div>
+
+        <div className="rules-grid" style={{ marginBottom: '30px' }}>
+          <div className="rule-item">
+            <h4 className="subtitle-dark">🏆 Pontos de Vitória</h4>
+            <p className="paragraph-normal">
+              Seu reino já inicia com uma quantidade de P.V., mas cuidado: se seus pontos forem baixos, seu castelo pode ser atacado por unidades comuns.
+              Ganhe pontos construindo torres ou através de missões secretas com o espião. Com P.V. altos, seu castelo só poderá sofrer dano através de armas de cerco.
+            </p>
+          </div>
+
+          <div className="rule-item">
+            <h4 className="subtitle-dark">🎲 Sistema de Combate</h4>
+            <p className="paragraph-normal">
+              O combate entre unidades é realizado com dados d6. Cada unidade do esquadrão é representada por um dado.
+              Após ataques bem-sucedidos, a tropa inimiga terá a chance de se defender, com cada classe tendo diferentes valores de ataque e defesa.
+            </p>
+          </div>
+        </div>
+
+        <div className="forest-combat-section" style={{ marginBottom: '30px' }}>
+          <div className="flex-1">
+            <h4 className="title-green">⚙️ Estrutura de Jogo</h4>
+            <ul className="list-large">
+              <li><strong>Tabuleiro:</strong> 26 x 26 casas quadradas com áreas de campo, florestas e rochedos gerados aleatoriamente.</li>
+              <li><strong>Esquadrões:</strong> Cada esquadrão conta com 5 unidades da classe escolhida.</li>
+              <li><strong>Treinamento:</strong> É possível adquirir habilidades permanentes para suas tropas, adaptando-as à sua estratégia.</li>
+              <li><strong>Movimentos por turno:</strong> Cada jogador pode movimentar até 3 esquadrões e realizar 3 ataques por turno.</li>
+            </ul>
+          </div>
+          <div className="flex-1">
+            <h4 className="title-green">🏅 Condições de Vitória</h4>
+            <ul className="list-large">
+              <li><strong>Destruição do Castelo:</strong> Use armas de cerco (ou tropas comuns se o inimigo tiver P.V. baixo) para destruir o castelo adversário.</li>
+              <li><strong>Acúmulo de Pontos:</strong> Atinja a quantidade de Pontos de Vitória estabelecida para vencer a partida.</li>
+              <li><strong>Pontos de Ação:</strong> Use-os para contratar tropas, realizar patrulhas e outras ações importantes.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <div className="units-section" style={{ marginBottom: '40px' }}>
         <h3 className="title-dark">⚔️ Unidades Disponíveis</h3>
         <div className="units-grid">
           {units.map((unit, index) => (
             <div key={index} className="unit-card">
               <a href={unit.image} data-fancybox="gallery" data-caption={`${unit.name} - Unidade de combate especializada`}>
-                <Image 
-                  src={unit.image} 
+                <Image
+                  src={unit.image}
                   alt={unit.name}
                   width={150}
                   height={150}
@@ -198,7 +254,7 @@ export default function SobrePage() {
                 <li><strong>Habilidade:</strong> {unit.special}</li>
               </ul>
               {unit.name === "🕵️ Espião" && (
-                <button 
+                <button
                   className="btn-show-missions"
                   onClick={() => setShowSecretMissions(true)}
                 >
@@ -218,8 +274,8 @@ export default function SobrePage() {
             {secretMissions.map((mission, index) => (
               <div key={index} className="mission-card">
                 <a href={mission.image} data-fancybox="gallery" data-caption={`${mission.name} - Missão secreta do espião`}>
-                  <Image 
-                    src={mission.image} 
+                  <Image
+                    src={mission.image}
                     alt={mission.name}
                     width={150}
                     height={150}
@@ -231,7 +287,7 @@ export default function SobrePage() {
             ))}
           </div>
           <div className="text-center margin-top-20">
-            <button 
+            <button
               className="btn-hide-missions"
               onClick={() => setShowSecretMissions(false)}
             >
@@ -262,8 +318,8 @@ export default function SobrePage() {
         </div>
         <div className="flex-1 text-center">
           <a href="/imagens/floresta.jpg" data-fancybox="gallery" data-caption="🌲 Combate em Floresta - Regras especiais para batalhas na floresta">
-            <Image 
-              src="/imagens/floresta.jpg" 
+            <Image
+              src="/imagens/floresta.jpg"
               alt="Combate em Floresta"
               width={300}
               height={200}
@@ -281,8 +337,8 @@ export default function SobrePage() {
               <h4 className="subtitle-dark">{rule.title}</h4>
               <p className="paragraph-normal">{rule.description}</p>
               <a href={rule.image} data-fancybox="gallery" data-caption={rule.title}>
-                <Image 
-                  src={rule.image} 
+                <Image
+                  src={rule.image}
                   alt={rule.title}
                   width={250}
                   height={150}
@@ -303,8 +359,8 @@ export default function SobrePage() {
           {galleryImages.map((item, index) => (
             <div key={index} className="gallery-item">
               <a href={item.src} data-fancybox="gallery" data-caption={`${item.name} - Estrutura do jogo Dominus`}>
-                <Image 
-                  src={item.src} 
+                <Image
+                  src={item.src}
                   alt={item.name}
                   width={180}
                   height={180}
@@ -324,14 +380,14 @@ export default function SobrePage() {
             {mechanics.map((mechanic, index) => (
               <li key={index}>
                 <a href={mechanic.image} data-fancybox="gallery" data-caption={`${mechanic.name} - ${mechanic.description}`}>
-                  <Image 
-                    src={mechanic.image} 
+                  <Image
+                    src={mechanic.image}
                     alt={mechanic.name}
                     width={30}
                     height={30}
                     className="mechanic-icon"
                   />
-                </a> 
+                </a>
                 <strong> {mechanic.name}:</strong> {mechanic.description}
               </li>
             ))}

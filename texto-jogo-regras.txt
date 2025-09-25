@@ -1,0 +1,46 @@
+Dominus V 0.1*
+Tabuleiro → 26 x 26 (quadrado)
+
+Organização e jogabilidade
+
+Jogadores terão seus castelos que irão fornecer ouro a cada rodada para que o jogador possa adquirir unidades (tropas) para seu exército.
+O ouro pode também ser adquirido ao derrotar tropas inimigas ou através de acampamentos.
+Será possível construir torres de vigilância que podem abrigar certas unidades concedendo algum benefício para a mesma, a torre fornecerá pontos de vitória (P.V.) para uma das diferentes maneiras de ganhar no Dominus (destruição do castelo e acúmulo de pontos de vitória).
+
+(Conquista) Pontos de Vitória →
+Seu reino já inicia com uma quantidade de pontos de vitória (P.V.), mas cuidado, se seus pontos forem baixos seu castelo pode ser atacado por unidades comuns.
+Cada ação mais ousada, como construção de torres, ou então realizando missões secretas com o espião que vão lhe conceder vantagem estratégica no tabuleiro.
+
+Se seus P.V.s forem altos seu castelo só poderá sofrer dano através de armas de cerco.
+
+Tabuleiro → O tabuleiro na V.1 contará com casas quadradas sendo 26 linhas e 26 colunas, com áreas de campo, florestas e rochedos inicialmente, gerado aleatoriamente por um site.
+As áreas de floresta e rochedos contarão com vantagens ou desvantagens de acordo com seu uso.
+
+Unidades (esquadrões) → Os esquadrões entram no tabuleiro ao pagar seu custo em ouro; cada esquadrão contará com 5 unidades da classe em questão.
+O combate entre unidades em Dominus será efetuado através de dados que serão lançados na hora do ataque, cada unidade do esquadrão será representada por um dado d6.
+
+Ao realizar qualquer número de atos bem-sucedidos, a tropa inimiga terá a chance de se defender. Cada classe terá seus status de ataque e defesa sendo aplicados em seus respectivos momentos.
+
+Além de atacar e defender com as tropas, você poderá adquirir “Treinamento” que dão habilidades permanentes para sua respectiva tropa, trazendo flexibilidade e variáveis de acordo com a estratégia aplicada.
+
+Espião → O espião contará com uma força tática mais avançada, embora esteja sozinho ele consegue mudar o destino do jogo através de suas missões secretas.
+Ao colocar o espião no tabuleiro, compra-se uma carta no baralho de missões secretas, abre e a deixa virada para baixo próximo do tabuleiro, essa será a missão que o espião realizará no tabuleiro; após realizada a missões, a carta deve ser revelada para o seu inimigo e depois adiciona-se a quantidade de P.V.s descrita na carta ao seu acúmulo.
+
+O movimento do espião é totalmente furtivo, podendo ser encontrado por uma ação de patrulha, se fazendo necessário uma terceira pessoa para gerenciar a localização do espião e a patrulha.
+
+Após uma missão ser concluída, outra pode ser comprada, mas cuidado, se o espião for capturado por uma patrulha todo o P.V. ganho pelo espião poderá ser adicionado ao reino que o capturou, se o jogador escolher pagar a quantidade de P.V. em ouro.
+
+O espião pode atacar e defender como uma unidade normal.
+
+Acampamentos →
+Sua função principal é dar suporte aos esquadrões que estiverem estacionados no espaço do acampamento, curando em 1 unidade por turno em troca de uma ação de ataque daquele turno.
+
+Vitória por destruição do castelo →
+Use armas de cerco como catapultas e balistas para atacar o castelo inimigo ou tropas comuns se o P.V. inimigo estiver baixo.
+
+Pontos de ação →
+O jogo contará com mecânica de pontos de ação que poderão ser usadas para realizar ações diversas como contratar tropas e patrulha, dentre outros.
+
+Movimentos e ataques fixos
+
+Em cada turno o jogador poderá se movimentar com até 3 esquadrões e poderá também realizar 3 ataques.

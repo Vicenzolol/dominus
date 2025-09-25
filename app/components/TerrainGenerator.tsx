@@ -101,7 +101,7 @@ export default function TerrainGenerator() {
     if (!boardRef.current) return;
 
     try {
-      // @ts-ignore - html2canvas será carregado dinamicamente
+      // @ts-expect-error - html2canvas será carregado dinamicamente
       const canvas = await html2canvas(boardRef.current, {
         backgroundColor: '#F5F3F0',
         scale: 2,

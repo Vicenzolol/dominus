@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
 import Script from 'next/script';
 import TerrainGenerator from './components/TerrainGenerator';
 

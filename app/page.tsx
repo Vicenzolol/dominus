@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <div className="controls">  
         <div className="generation-type">
-          <h3>🎲 Gere o Tabuleiro: teste</h3>
+          <h3>🎲 Gere o Tabuleiro:</h3>
           <TerrainGenerator />
         </div>
       </div>
